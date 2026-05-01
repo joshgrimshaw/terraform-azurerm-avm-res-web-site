@@ -32,9 +32,7 @@ locals {
       FUNCTIONS_EXTENSION_VERSION  = var.logic_app_runtime_version
       FUNCTIONS_WORKER_RUNTIME     = "node"
       WEBSITE_NODE_DEFAULT_VERSION = "~18"
-      AzureWebJobsStorage          = var.storage_uses_managed_identity ? null : (
-        "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key}"
-      )
+      AzureWebJobsStorage__accountName = var.storage_account_name
     },
     var.use_extension_bundle ? {
       AzureFunctionsJobHost__extensionBundle__id      = "Microsoft.Azure.Functions.ExtensionBundle.Workflows"
@@ -42,7 +40,6 @@ locals {
     } : {},
     var.storage_account_share_name != null ? {
       WEBSITE_CONTENTSHARE                     = var.storage_account_share_name
-      WEBSITE_CONTENTAZUREFILECONNECTIONSTRING = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key}"
     } : {},
   ) : {}
   merged_app_settings = merge(
