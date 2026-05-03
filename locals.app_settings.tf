@@ -33,6 +33,7 @@ locals {
       FUNCTIONS_WORKER_RUNTIME     = "node"
       WEBSITE_NODE_DEFAULT_VERSION = "~20"
       AzureWebJobsStorage__accountName = var.storage_account_name
+      AzureWebJobsStorage__credentialType = "managedIdentity"
     },
     var.use_extension_bundle ? {
       AzureFunctionsJobHost__extensionBundle__id      = "Microsoft.Azure.Functions.ExtensionBundle.Workflows"
