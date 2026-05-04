@@ -31,7 +31,7 @@ locals {
     {
       FUNCTIONS_EXTENSION_VERSION  = var.logic_app_runtime_version
       FUNCTIONS_WORKER_RUNTIME     = "node"
-      WEBSITE_NODE_DEFAULT_VERSION = "~20"
+      WEBSITE_NODE_DEFAULT_VERSION = "~22"
       AzureWebJobsStorage__accountName = var.storage_account_name
     },
     var.use_extension_bundle ? {
