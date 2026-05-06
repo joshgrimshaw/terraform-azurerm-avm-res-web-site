@@ -45,6 +45,7 @@ locals {
     } : {},
     var.storage_account_share_name != null ? {
       WEBSITE_CONTENTSHARE                     = var.storage_account_share_name
+      WEBSITE_CONTENT_AZUREFILECONNECTIONSTRING = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key}"
     } : {},
   ) : {}
   merged_app_settings = merge(
