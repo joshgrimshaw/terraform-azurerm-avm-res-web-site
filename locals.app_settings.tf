@@ -32,8 +32,13 @@ locals {
       FUNCTIONS_EXTENSION_VERSION  = var.logic_app_runtime_version
       FUNCTIONS_WORKER_RUNTIME     = "node"
       WEBSITE_NODE_DEFAULT_VERSION = "~22"
-      AzureWebJobsStorage__accountName = var.storage_account_name
+      AzureWebJobsStorage = var.storage_uses_managed_identity ? "" : (
+        var.storage_account_access_key != null ? "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key}" : null
+      )
     },
+    var.storage_uses_managed_identity ? {
+      AzureWebJobsStorage__accountName = var.storage_account_name
+    } : {},
     var.use_extension_bundle ? {
       AzureFunctionsJobHost__extensionBundle__id      = "Microsoft.Azure.Functions.ExtensionBundle.Workflows"
       AzureFunctionsJobHost__extensionBundle__version = var.bundle_version
